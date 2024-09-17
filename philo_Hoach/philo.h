@@ -5,55 +5,66 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 16:35:19 by nthoach           #+#    #+#             */
-/*   Updated: 2024/09/02 22:09:27 by nthoach          ###   ########.fr       */
+/*   Created: 2024/09/12 05:33:00 by nthoach           #+#    #+#             */
+/*   Updated: 2024/09/18 02:10:53 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef	PHILO_H
+#ifndef PHILO_H
 # define PHILO_H
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdio.h>
 
-typedef struct s_param
-{
-	int				num_philo;
-	int				time2eat;
-	int				time2sleep;
-	int				time2die;
-	int				num_eat;
-	int				num_ate;
-	unsigned long	sim_time;
-} t_param;
+# define OK 0
+# define FL_ARG 1
+# define FL_PAR 2
+# define TAKING 3
+# define EATING 4
+# define SLEEPING 5
+# define THINKING 6
 
-typedef struct s_state
+# define LOCK pthread_mutex_lock
+# define UNLOCK pthread_mutex_lock
+
+typedef struct s_para
 {
-	unsigned long	last_meal;
-	int				ate;
+	int				n_phis;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				n_meal;
+	int				living;
+	int				who_die;
+	size_t			t;
+	size_t			when_die;
+	pthread_mutex_t	lock_die;
+	pthread_mutex_t	lock_start;
+	pthread_mutex_t	lock_print;
+	pthread_mutex_t	lock_meal;
+}				t_para;
+
+typedef struct s_phis
+{
 	int				id;
-	t_param			*param;
-	pthread_mutex_t	*mutex;
-	pthread_mutex_t	*print;
-} t_state;
+	int				n_ate;
+	int				is_dead;
+	int				n_phi;
+	int				ate;
+	size_t			t_lastmeal;
+	pthread_t		thread;
+	pthread_mutex_t	*phi_lock;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork;	
+}				t_phis;
 
-int				ft_atoi(char *str);
-int				exit_err(void);
-int				check_agv(char **agv);
-int				agv2param(t_param *param, char **agv);
-void			put_param(t_state *state, t_param *vars,
-				pthread_mutex_t *mutex, pthread_mutex_t print);
-int				ini_param(t_state *state, t_param *param);
-int				free_param(t_state *state, pthread_mutex_t *mutex,
-				t_param *param);
-void			destroy_mutex();
-unsigned long	int_time(void);
-unsigned long	real_time(t_state *state);
-void			print_state(t_state *state, unsigned long time, char *doing);
-void			*do_it(void *p);
-void			func(t_state *state, t_param *param);
-				
+void	ft_putstr_fd(char *str, int fd);
+int		ft_strlen(char *str);
+int		err(int state, t_para *para);
+
+
 #endif
