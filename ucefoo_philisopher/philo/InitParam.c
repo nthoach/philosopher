@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   InitParam.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youssama <youssama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 00:51:59 by youssama          #+#    #+#             */
-/*   Updated: 2022/05/25 00:03:23 by youssama         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:14:27 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	assign_param(t_philo *philo, t_const_philo *var,
 	{
 		philo[i].ate = 0;
 		philo[i].id = i + 1;
-		philo[i].mutex = m;
+		philo[i].mutex = m;set_
 		philo[i].print = pr;
 		philo[i].var = var;
 		i++;

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   check_agv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 22:51:41 by nthoach           #+#    #+#             */
-/*   Updated: 2024/09/18 01:47:26 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/10/18 18:29:29 by honguyen         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "philo.h"
 
@@ -64,15 +64,15 @@ int	is_integer(char **agv)
 	{
 		len = ft_strlen(agv[i]);
 		if (len > 10)
-			return (FL_ARG);
+			return (1);
 		if (len == 10)
 		{
 			if (ft_atoi(agv[i]) > INT8_MAX)
-				return (FL_ARG);
+				return (1);
 		}
 		i++;
 	}
-	return (OK);
+	return (0);
 }
 
 int	check_agv(char **agv)
@@ -86,16 +86,16 @@ int	check_agv(char **agv)
 		j = 0;
 		while (agv[i][j])
 		{
-			if (j == 0 && agv[i][j] == "+")
+			if (j == 0 && agv[i][j] == '+')
 			{
 				j++;
 				continue ;
 			}
-			if ((agv[i][j] < 0 || agv[i][j] > 9))
-				return (FL_ARG);
+			if ((agv[i][j] < '0' || agv[i][j] > '9'))
+				return (1);
 			j++;
 		}
 		i++;
-	}	
+	}
 	return (is_integer(agv));
 }
