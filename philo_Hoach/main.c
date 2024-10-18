@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:41:37 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/18 18:27:41 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:32:16 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int agc, char **agv)
 	int			i;
 
 	if (agc < 5 || agc > 6 || check_agv(agv))
-		return (printf("wrong args = %d", agc));
+		return (err(ER_ARG, data));
 	data = (t_data *)malloc(sizeof(t_data));
 	if (agc_data(agv, data))
 		return (1);
