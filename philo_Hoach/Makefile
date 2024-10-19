@@ -9,7 +9,7 @@ obj = $(src:.c=.o)
 
 flags = -Wall -Werror -Wextra
 
-cc = cc -pthread
+cc = gcc -pthread -fsanitize=address -g
 
 all: $(NAME)
 

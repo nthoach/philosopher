@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_philo.c                                        :+:      :+:    :+:   */
+/*   3_set_philo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:41:37 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/19 09:39:12 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:50:33 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	free_all(t_philo *philo, pthread_mutex_t *forks, t_data *data)
 {
-	if (philo)
-		free(philo);
 	if (forks)
 		free(forks);
+	if (philo)
+		free(philo);
 	if (data)
 		free(data);
 	return (1);
@@ -49,6 +49,8 @@ int	set_philo(t_philo *philo, t_data *data)
 	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->n_philo);
 	if (!forks || !philo)
 		return (free_all(philo, forks, data));
+	pthread_mutex_init(&data->stop_mutex, NULL);
+	data->stop = 0;
 	i = 0;
 	while (i < data->n_philo)
 		if (pthread_mutex_init(&forks[i++], 0))

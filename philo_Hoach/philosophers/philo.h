@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 05:33:00 by nthoach           #+#    #+#             */
-/*   Updated: 2024/10/19 10:58:37 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:49:11 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_data
 	int				max_meal;
 	int				n_full;
 	size_t			t_start;
+	int				stop;
+	pthread_mutex_t	stop_mutex;
 }				t_data;
 
 // [id] id of philospher
