@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 05:33:00 by nthoach           #+#    #+#             */
-/*   Updated: 2024/10/19 09:51:35 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:58:37 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/time.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
 //# include <string.h>
 # include <stdio.h>
 

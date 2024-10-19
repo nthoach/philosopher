@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:41:37 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/19 09:56:46 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/19 11:51:13 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	*doing(void *ptr)
 
 	philo = (t_philo *)ptr;
 	if (philo->id % 2 == 0)
-		usleep(10);
+		usleep(100);
 	philo->t_lastmeal = timeslap();
 	while (1)
 	{
 		pthread_mutex_lock(&philo->forks[philo->id - 1]);
-		print(philo, runtime(philo), "has taken a fork");
+		print(philo, runtime(philo), "has taken his left fork");
 		pthread_mutex_lock(&philo->forks[philo->id % philo->data->n_philo]);
-		print(philo, runtime(philo), "has taken a fork");
+		print(philo, runtime(philo), "has taken his right fork");
 		print(philo, runtime(philo), "is eating");
 		philo->n_ate++;
 		if (philo->n_ate == philo->data->max_meal)
@@ -57,15 +57,15 @@ void	simulate(t_philo *philo, t_data *data)
 		if (timeslap() - philo[i].t_lastmeal
 			> (size_t)data->t_die)
 		{
-			usleep(100);
+			usleep(1000);
 			pthread_mutex_lock(philo->print);
-			printf("%lums	%d died", runtime(philo), philo->id);
+			printf("[%lums]	%d died\n", runtime(philo), philo->id);
 			dest_mutex(philo);
 			free_all(philo, philo->forks, data);
 			return ;
 		}
 		i = (i + 1) % data->n_philo;
-		usleep(500);
+		usleep(1000);
 	}
 }
 
@@ -89,7 +89,7 @@ int	main(int agc, char **agv)
 	while (i < data->n_philo)
 	{
 		pthread_create(&threads[i], NULL, doing, philo + i);
-		usleep(100);
+		usleep(1000);
 		i++;
 	}
 	simulate(philo, data);
