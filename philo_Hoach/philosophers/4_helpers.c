@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   4_helpers.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:16:01 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/18 17:46:19 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/19 09:50:17 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	runtime(t_philo *philo)
 void	print(t_philo *philo, size_t time, char *is_doing)
 {
 	pthread_mutex_lock(philo->print);
-	printf("%lums	%d %s\n", time, philo->id, is_doing);
+	printf("[%lums]	%d %s\n", time, philo->id, is_doing);
 	pthread_mutex_unlock(philo->print);
 }
 

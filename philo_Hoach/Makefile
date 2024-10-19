@@ -1,7 +1,9 @@
 NAME = philo
 
-src = philo/philo.c philo/lib.c
-hd = philo/philo.h
+src = philosophers/1_check_agv.c philosophers/2_agc_data.c \
+	philosophers/3_set_philo.c philosophers/4_helpers.c philosophers/main.c
+
+headers = philosophers/philo.h
 
 obj = $(src:.c=.o)
 
@@ -11,8 +13,8 @@ cc = cc
 
 all: $(NAME)
 
-$(NAME): $(src) $(obj) $(hd)
-	$(cc) $(flags) $(src) - o $(NAME)
+$(NAME): $(src) $(obj) $(headers)
+	$(cc) $(flags) $(src) -o $(NAME)
 
 %.o: %.c
 	$(cc) $(flags) -c $< -o $@
@@ -24,3 +26,5 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

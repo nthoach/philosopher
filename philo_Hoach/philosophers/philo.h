@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 05:33:00 by nthoach           #+#    #+#             */
-/*   Updated: 2024/10/18 18:08:53 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/19 09:51:35 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 # include <sys/time.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <string.h>
+//# include <string.h>
 # include <stdio.h>
 
 # define OK 0
 # define ER_ARG 1
 # define ER_DATA 2
-# define TAKING 3
-# define EATING 4
-# define SLEEPING 5
-# define THINKING 6
+//# define TAKING 3
+//# define EATING 4
+//# define SLEEPING 5
+//# define THINKING 6
 
 # define LOCK pthread_mutex_lock
 # define UNLOCK pthread_mutex_lock
@@ -52,8 +52,8 @@ typedef struct s_data
 // [n_ate] number of ate meals
 // [t_lastmeal] instant of last meal ate
 // [*data] pointer to data structure of program
-// [*fork_locker] mutex to lock the fork
-// [*print_locker] mutex to lock the print
+// [*forks] mutex lockers for forks
+// [*print] mutex lockers for print devices
 
 typedef struct s_philo
 {
@@ -65,25 +65,29 @@ typedef struct s_philo
 	pthread_mutex_t		*print;	
 }				t_philo;
 
-//main
-
+//check arguments
 int		check_agv(char **agv);
 int		is_integer(char **agv);
 int		ft_strlen(char *str);
 size_t	ft_atoi(const char *str);
 
+//write agc to data
 int		agc_data(char **agv, t_data *data);
 int		err(int err_code, t_data *data);
 
+//initialize philo
 int		set_philo(t_philo *philo, t_data *data);
-void	ini_philo(t_philo *philo, t_data *data, pthread_mutex_t *forks, pthread_mutex_t *print);
+void	ini_philo(t_philo *philo, t_data *data,
+			pthread_mutex_t *forks, pthread_mutex_t *print);
 int		free_all(t_philo *philo, pthread_mutex_t *forks, t_data *data);
 
+//main routine
 void	*doing(void *p);
 size_t	timeslap(void);
 void	print(t_philo *philo, size_t time, char *is_doing);
 size_t	runtime(t_philo *philo);
 
+//check stop conditions
 void	simulate(t_philo *philo, t_data	*data);	
 void	dest_mutex(t_philo *philo);
 #endif
