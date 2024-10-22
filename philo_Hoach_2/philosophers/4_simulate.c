@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:16:01 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/22 19:57:59 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:23:00 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	check_full(t_data *data, t_philo *philo)
 {
 	int	i;
 
+	LOCK(&data->lock_checkfull);
 	if (data->max_meal == -1)
 		return (0);
 	i = 0;
@@ -25,6 +26,8 @@ int	check_full(t_data *data, t_philo *philo)
 			return (0);
 		i++;
 	}
+	data->full = 1;
+	UNLOCK(&data->lock_checkfull);
 	return (1);
 }
 
@@ -51,7 +54,7 @@ void	check_all(t_data *data, t_philo *philo)
 		UNLOCK(&data->lock_checkdie);
 		UNLOCK(&data->lock_checkfull);
 	}
-	if (check_full(data, philo))
+	if (data->full)
 		data->die = -1;
 	data->t_death = timeslap();
 }
