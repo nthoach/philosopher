@@ -6,67 +6,84 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:41:37 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/21 17:42:57 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:55:52 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	destroy_forks(pthread_mutex_t *forks, int i)
+int	destroy_all(t_data *data, t_philo *philo, pthread_mutex_t *forks, int i)
 {
 	int	j;
 
 	j = 0;
 	while (j < i)
 	{
-		pthread_mutex_destroy(&forks[i]);
+		pthread_mutex_destroy(forks + j);
 		j++;
 	}
-}
-
-int	free_all(t_philo *philo, pthread_mutex_t *forks, t_data *data)
-{
-	if (forks)
-		free(forks);
-	if (philo)
-		free(philo);
-	if (data)
-		free(data);
+	free(data);
+	free(philo);
+	free(forks);
 	return (1);
 }
 
-void	ini_philo(t_philo *philo, t_data *data,
-	pthread_mutex_t *forks, pthread_mutex_t *print)
+int	ini_locks(t_data *data)
+{
+	if (pthread_mutex_init(&data->lock_print, NULL))
+		return (1);
+	if (pthread_mutex_init(&data->lock_checktime, NULL))
+	{
+		pthread_mutex_destroy(&data->lock_print);
+		return (1);
+	}
+	if (pthread_mutex_init(&data->lock_checkdie, NULL))
+	{
+		pthread_mutex_destroy(&data->lock_print);
+		pthread_mutex_destroy(&data->lock_checktime);
+		return (1);
+	}
+	if (pthread_mutex_init(&data->lock_checkfull, NULL))
+	{
+		pthread_mutex_destroy(&data->lock_print);
+		pthread_mutex_destroy(&data->lock_checktime);
+		pthread_mutex_destroy(&data->lock_checkdie);
+		return (1);
+	}
+	return (0);
+}
+
+void	init_philo(t_data *data, t_philo *philo, pthread_mutex_t *forks)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->n_philo)
 	{
-		philo[i].n_ate = 0;
+		philo[i].death = 0;
 		philo[i].id = i + 1;
-		philo[i].forks = forks;
+		philo[i].n_ate = 0;
+		philo[i].t_lastmeal = 0;
+		philo[i].right = &forks[i];
+		philo[i].left = &forks[(i + 1) % data->n_philo];
 		philo[i].data = data;
 		i++;
 	}
 }
 
-int	set_philo(t_philo *philo, t_data *data, pthread_mutex_t *forks)
+int	ini_lock_philo(t_data *data, t_philo *philo, pthread_mutex_t *forks)
 {
 	int				i;
 	int				error;
 
-	if (!forks || !philo)
-		return (free_all(philo, forks, data));
 	i = 0;
 	error = 0;
 	while (i++ < data->n_philo && error == 0)
 		error += pthread_mutex_init(&forks[i], NULL);
 	if (error)
-	{
-		destroy_forks(forks, i);
-		return (free_all(philo, forks, data));
-	}
-	ini_philo(philo, data, forks, &print);
+		return (destroy_all(data, philo, forks, i));
+	if (ini_locks(data))
+		return (destroy_all(data, philo, forks, data->n_philo));
+	init_philo(data, philo, forks);
 	return (OK);
 }

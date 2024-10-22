@@ -1,7 +1,9 @@
 NAME = philo
 
-src = philosophers/1_check_agv.c philosophers/2_agc_data.c \
-	philosophers/3_set_philo.c philosophers/4_helpers.c philosophers/main.c
+src = philosophers/1_check_agv.c philosophers/2_set_data.c \
+	philosophers/3_set_philo.c philosophers/4_simulate.c \
+	philosophers/5_doing.c philosophers/6_take_forks.c \
+	philosophers/7_printing.c philosophers/main.c
 
 headers = philosophers/philo.h
 
