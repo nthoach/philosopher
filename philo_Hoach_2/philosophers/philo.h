@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 05:33:00 by nthoach           #+#    #+#             */
-/*   Updated: 2024/10/22 20:03:42 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:46:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ typedef struct s_data
 	size_t			t_start;
 	size_t			t_death;
 	int				die;
-	bool			full;
+	bool				full;
 	pthread_mutex_t	lock_print;
 	pthread_mutex_t	lock_checktime;
 	pthread_mutex_t	lock_checkdie;
-	pthread_mutex_t	lock_checkfull;	
+	pthread_mutex_t	lock_checkfull;
 }				t_data;
 
 // [id] id of philospher
@@ -124,4 +124,6 @@ int		check_dead(t_philo *philo);
 int		print(t_philo *philo, int flag);
 int		ft_usleep(size_t milliseconds);
 size_t	timeslap(void);
+void		free_mem(t_data *data, t_philo *philo, pthread_mutex_t *forks);
+
 #endif

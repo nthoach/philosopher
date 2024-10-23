@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2_set_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:22:59 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/22 20:04:01 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:10:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,11 @@ void	ft_putstr_fd(char *str, int fd)
 int	errors(int err_code, t_data *data, t_philo *philo, \
 	pthread_mutex_t *forks)
 {
-	if (data)
-		free(data);
-	if (!philo)
-		free(philo);
-	if (!forks)
-		free(forks);
+	free_mem(data, philo, forks);
 	if (err_code == ER_ARG)
-		ft_putstr_fd("Ivalid arguments, i.e., ./philo 5 20 5 5 5 \n", 2);
+		ft_putstr_fd("Invalid arguments, i.e., ./philo 5 20 5 5 5 \n", 2);
 	else if (err_code == ER_DATA)
-		ft_putstr_fd("Error in memory allication \n", 2);
+		ft_putstr_fd("Error in memory allocation \n", 2);
 	else
 		ft_putstr_fd("Unknow Errors \n", 2);
 	return (err_code);
@@ -52,7 +47,5 @@ int	set_data(char **agv, t_data *data)
 	}
 	else
 		data->max_meal = -1;
-	data->die = -1;
-	data->full = 0;
 	return (OK);
 }

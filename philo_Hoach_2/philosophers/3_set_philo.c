@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3_set_philo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:41:37 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/22 19:55:52 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:47:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int	destroy_all(t_data *data, t_philo *philo, pthread_mutex_t *forks, int i)
 		pthread_mutex_destroy(forks + j);
 		j++;
 	}
-	free(data);
-	free(philo);
-	free(forks);
+	free_mem(data, philo, forks);
 	return (1);
 }
 
@@ -74,14 +72,11 @@ void	init_philo(t_data *data, t_philo *philo, pthread_mutex_t *forks)
 int	ini_lock_philo(t_data *data, t_philo *philo, pthread_mutex_t *forks)
 {
 	int				i;
-	int				error;
 
-	i = 0;
-	error = 0;
-	while (i++ < data->n_philo && error == 0)
-		error += pthread_mutex_init(&forks[i], NULL);
-	if (error)
-		return (destroy_all(data, philo, forks, i));
+	i = -1;
+	while (++i < data->n_philo )
+		if (pthread_mutex_init(&forks[i], NULL))
+			return (destroy_all(data, philo, forks, i));
 	if (ini_locks(data))
 		return (destroy_all(data, philo, forks, data->n_philo));
 	init_philo(data, philo, forks);
