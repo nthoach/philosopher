@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:41:37 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/23 15:47:47 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/24 12:41:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ini_lock_philo(t_data *data, t_philo *philo, pthread_mutex_t *forks)
 	int				i;
 
 	i = -1;
-	while (++i < data->n_philo )
+	while (++i < data->n_philo)
 		if (pthread_mutex_init(&forks[i], NULL))
 			return (destroy_all(data, philo, forks, i));
 	if (ini_locks(data))

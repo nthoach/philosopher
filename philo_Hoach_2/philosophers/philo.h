@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 05:33:00 by nthoach           #+#    #+#             */
-/*   Updated: 2024/10/23 15:46:53 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/24 12:46:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,18 @@
 
 typedef struct s_data
 {
-	int				n_philo;
-	size_t			t2die;
-	int				t2eat;
-	int				t2sleep;
-	int				max_meal;
-	size_t			t_start;
-	size_t			t_death;
-	int				die;
-	bool				full;
-	pthread_mutex_t	lock_print;
-	pthread_mutex_t	lock_checktime;
-	pthread_mutex_t	lock_checkdie;
-	pthread_mutex_t	lock_checkfull;
+	int					n_philo;
+	size_t				t2die;
+	int					t2eat;
+	int					t2sleep;
+	int					max_meal;
+	size_t				t_start;
+	size_t				t_death;
+	int					die;
+	pthread_mutex_t		lock_print;
+	pthread_mutex_t		lock_checktime;
+	pthread_mutex_t		lock_checkdie;
+	pthread_mutex_t		lock_checkfull;
 }				t_data;
 
 // [id] id of philospher
@@ -124,6 +123,6 @@ int		check_dead(t_philo *philo);
 int		print(t_philo *philo, int flag);
 int		ft_usleep(size_t milliseconds);
 size_t	timeslap(void);
-void		free_mem(t_data *data, t_philo *philo, pthread_mutex_t *forks);
+void	free_mem(t_data *data, t_philo *philo, pthread_mutex_t *forks);
 
 #endif

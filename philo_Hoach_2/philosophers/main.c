@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:41:37 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/23 14:35:48 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/24 12:43:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	free_mem(t_data *data, t_philo *philo, pthread_mutex_t *forks)
 
 int	main(int agc, char **agv)
 {
-	t_data			*data;
-	t_philo			*philo;
+	t_data				*data;
+	t_philo				*philo;
 	pthread_mutex_t		*forks;
 
 	if (agc < 5 || agc > 6 || check_agv(agv))
 		return (errors(ER_ARG, NULL, NULL, NULL));
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
-		return (errors(ER_DATA,data, NULL, NULL));
+		return (errors(ER_DATA, data, NULL, NULL));
 	if (set_data(agv, data))
 		return (NOK);
 	philo = ((t_philo *)malloc((data->n_philo) * sizeof(t_philo)));

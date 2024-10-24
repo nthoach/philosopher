@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:16:01 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/23 16:03:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/24 12:41:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	check_full(t_data *data, t_philo *philo)
 {
 	int	i;
 
-	//LOCK(&data->lock_checkfull);
 	if (data->max_meal == -1)
 		return (0);
 	i = 0;
@@ -26,8 +25,6 @@ int	check_full(t_data *data, t_philo *philo)
 			return (0);
 		i++;
 	}
-	//data->full = 1;
-	//UNLOCK(&data->lock_checkfull);
 	return (1);
 }
 
@@ -78,7 +75,6 @@ void	simulate_philo(t_data *data, t_philo *philo, pthread_mutex_t *forks)
 
 	i = -1;
 	data->die = -1;
-	data->full = 0;
 	data->t_start = timeslap();
 	while (++i < data->n_philo)
 		pthread_create(&philo[i].thread, NULL, doing, &philo[i]);

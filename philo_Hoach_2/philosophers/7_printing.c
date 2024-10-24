@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:13:19 by honguyen          #+#    #+#             */
-/*   Updated: 2024/10/23 14:53:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/24 13:35:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_usleep(size_t milliseconds)
 
 	start = timeslap();
 	while ((timeslap() - start) < milliseconds)
-		usleep(500);
+		usleep(200);
 	return (0);
 }
 
